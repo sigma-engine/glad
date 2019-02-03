@@ -111,8 +111,9 @@ endif()
 
 # Install
 if(GLAD_INSTALL)
-
-  set(config_install_dir "lib/cmake/glad")
+  include(GNUInstallDirs)
+  
+  set(config_install_dir "${CMAKE_INSTALL_LIBDIR}/cmake/glad")
   set(version_config "${CMAKE_CURRENT_BINARY_DIR}/gladConfigVersion.cmake")
   set(project_config "${CMAKE_CURRENT_BINARY_DIR}/gladConfig.cmake")
   set(targets_export_name "gladTargets")
@@ -136,15 +137,15 @@ if(GLAD_INSTALL)
   install(
     TARGETS glad
     EXPORT "${targets_export_name}"
-    LIBRARY DESTINATION "lib"
-    ARCHIVE DESTINATION "lib"
-    RUNTIME DESTINATION "bin"
-    INCLUDES DESTINATION "include")
+    LIBRARY DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    ARCHIVE DESTINATION "${CMAKE_INSTALL_LIBDIR}"
+    RUNTIME DESTINATION "${CMAKE_INSTALL_BINDIR}"
+    INCLUDES DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
 
   if(GLAD_INCLUDE_DIRS)
     install(
       DIRECTORY ${GLAD_INCLUDE_DIRS}
-      DESTINATION ${CMAKE_INSTALL_PREFIX})
+      DESTINATION "${CMAKE_INSTALL_INCLUDEDIR}")
   endif()
 
   # Install gladConfig.cmake, gladConfigVersion.cmake
